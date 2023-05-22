@@ -8,7 +8,8 @@
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
       </script>
-    <title>New note diagram</title>
+
+    <title>Single page app diagram</title>
 </head>
 <body>
     <pre class="mermaid">
@@ -16,15 +17,7 @@
             participant browser
             participant server
 
-            browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
-            activate server
-
-            Note right of browser: browser send user input to server
-
-            server->>browser: HTTP STATUS CODE 302 : URL redirect
-            deactivate server
-
-            browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+            browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
             activate server
             server->>browser: HTML document
             deactivate server
@@ -34,7 +27,7 @@
             server->>browser: CSS file
             deactivate server
 
-            browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+            browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
             activate server
             server->>browser: JavaScript file
             deactivate server
@@ -43,10 +36,11 @@
 
             browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
             activate server
-            server->>browser: data.json
+            server->>browser: data.json 
             deactivate server
 
             Note right of browser: The browser executes the callback function that renders the notes
+
     </pre>
 </body>
 </html>
