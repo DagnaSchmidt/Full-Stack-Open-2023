@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const App = () => {
     const anecdotes = [
@@ -13,44 +13,47 @@ const App = () => {
       ];
 
     const [selected, setSelected] = useState(0);
-    const [points, setPoints] = useState({
-        0: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0
-    });
+    const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+    const [theBiggestVotesIndex, setTheBiggestVotesIndex] = useState('');
+
+    useEffect(() => {
+        findAnecdoteWithMostVotes();
+    }, [points])
+
+    const voteOnAnecdote = () => {
+        const newVotes = points[selected] + 1;
+        let newPoints = [...points];
+        newPoints[selected] = newVotes;
+        setPoints(newPoints);
+    }
 
     const displayRandomAnecdote = () => {
         const maxNumber = anecdotes.length;
         const randomNumber = Math.floor(Math.random() * maxNumber);
-        console.log(randomNumber);
         setSelected(randomNumber);
     }
 
-    console.log(points);
-
-    const vote = (id) => {
-        const newScore = points[id] + 1;
-        setPoints({
-            ...points,
-            [id]: newScore
-        })
+    const findAnecdoteWithMostVotes = () => {
+        const theBiggestNumber = Math.max(...points);
+        if(theBiggestNumber !== 0){
+            const numberIndex = points.findIndex((element) => element === theBiggestNumber);
+            setTheBiggestVotesIndex(numberIndex);
+        }
     }
   
     return (
       <>
+        <h1>Anecdote of the day</h1>
         <p>{anecdotes[selected]}</p>
         <p>has {points[selected]} points</p>
-        <button onClick={() => vote(selected)}>
+        <button onClick={() => voteOnAnecdote()}>
             vote
         </button>
-        <button onClick={displayRandomAnecdote}>
+        <button onClick={() => displayRandomAnecdote()}>
             next anecdote
         </button>
+        <h2>Anecdote with most votes</h2>
+        <p>{theBiggestVotesIndex.length !== 0 && anecdotes[theBiggestVotesIndex]}</p>
       </>
     )
 }
