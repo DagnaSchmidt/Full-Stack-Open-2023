@@ -1,4 +1,5 @@
 import React from 'react';
+import StatisticLine from './StatisticLine';
 
 const Statistic = ({good, bad, neutral, average}) => {
     const all = good + neutral + bad;
@@ -6,13 +7,13 @@ const Statistic = ({good, bad, neutral, average}) => {
     const averageProc = average / all;
 
   return (
-    <>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {good + neutral + bad}</p>
-        <p>average {all === 0 ? '0' : averageProc}</p>
-        <p>positive {all === 0 ? '0' : positive} %</p>
+    <>  
+        <StatisticLine text='good' value={good} />
+        <StatisticLine text='neutral' value={neutral} />
+        <StatisticLine text='bad' value={bad} />
+        <StatisticLine text='all' value={good + neutral + bad} />
+        <StatisticLine text='average' value={all === 0 ? '0' : averageProc} />
+        <StatisticLine text='positive' value={`${all === 0 ? '0' : positive} %`} />
     </>
   )
 }
