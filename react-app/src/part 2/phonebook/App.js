@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Search from './components/Search';
 import AddNumber from './components/AddNumber';
 import Numbers from './components/Numbers';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', phone: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', phone: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', phone: '39-23-6423122', id: 4 }
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [search, setSearch] = useState('');
   const searchedPersons = persons.filter((item) => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
-  console.log(searchedPersons);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons')
+        .then(response => {
+            setPersons(response.data);
+        });
+    }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -59,14 +61,8 @@ const App = () => {
       <Search search={search} handleChange={handleChange} />
       <h3>Add new number</h3>
       <AddNumber handleSubmit={handleSubmit} handleChange={handleChange} newName={newName} newPhone={newPhone} />
-      <h2>Numbers</h2>
+      <h3>Numbers</h3>
       <Numbers search={search} searchedPersons={searchedPersons} persons={persons} />
-      {/* {
-        search.length > 0 ?
-            searchedPersons.map((item) => <p key={item.name}>{item.name} {item.phone}</p>)
-        :
-            persons.map((item) => <p key={item.name}>{item.name} {item.phone}</p>)
-      } */}
     </div>
   )
 }
