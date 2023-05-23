@@ -1,17 +1,28 @@
 import { useState } from 'react'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
+  const [persons, setPersons] = useState([{ name: 'Arto Hellas' }]); 
   const [newName, setNewName] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    setPersons([
-        ...persons,
-        {name: newName}
-    ]);
+    const check = () => {
+        for(let i = 0; i < persons.length; i++){
+            if(newName === persons[i].name){
+                return false;
+            }
+        }
+        return true;
+    }
+    const checked = check();
+    if(checked === true){
+        setPersons([
+            ...persons,
+            {name: newName}
+        ]);
+    }else{
+        alert(`${newName} is already added to phone book`);
+    }
   }
 
   const handleChange = e => {
