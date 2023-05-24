@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Search from './components/Search';
 import AddNumber from './components/AddNumber';
 import Numbers from './components/Numbers';
-import {getAll, addNew} from './backend/actions';
+import {getAll, addNew, deleteNumber} from './backend/actions';
+
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [search, setSearch] = useState('');
-  const searchedPersons = persons.filter((item) => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
+  const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
     getAll()
@@ -19,27 +19,30 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const check = () => {
+    const newPerson = {
+        name: newName,
+        phone: newPhone
+    }
+    const check = () => {   
         for(let i = 0; i < persons.length; i++){
             if(newName === persons[i].name){
-                return false;
+                if(window.confirm(`${newName} already exists in database. Replace old number with new one?`)){
+                    deleteNumber(persons[i].id)
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
         return true;
     }
     const checked = check();
     if(checked === true){
-        const newPerson = {
-            name: newName,
-            phone: newPhone
-        }
         addNew(newPerson)
             .then(response => setPersons(persons.concat(response)))
             .catch(error => {
                 console.log('post new phone number failed');
-            })
-    }else{
-        alert(`${newName} is already added to phone book`);
+            });
     }
   }
 
