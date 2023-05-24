@@ -11,5 +11,9 @@ const addNew = (newItem) => {
     return request.then(response => response.data);
 }
 
-export {getAll, addNew};
+const deleteNumber = (id) => {
+    return axios.delete(`${url}/${id}`);
+}
+
+export {getAll, addNew, deleteNumber};
 

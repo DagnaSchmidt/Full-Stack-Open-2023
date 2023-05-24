@@ -31,8 +31,7 @@ const App = () => {
     if(checked === true){
         const newPerson = {
             name: newName,
-            phone: newPhone,
-            id: persons.length + 1
+            phone: newPhone
         }
         addNew(newPerson)
             .then(response => setPersons(persons.concat(response)))
@@ -63,7 +62,7 @@ const App = () => {
       <h3>Add new number</h3>
       <AddNumber handleSubmit={handleSubmit} handleChange={handleChange} newName={newName} newPhone={newPhone} />
       <h3>Numbers</h3>
-      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} />
+      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} setPersons={setPersons} />
     </div>
   )
 }
