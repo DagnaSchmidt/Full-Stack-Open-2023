@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Search from './components/Search';
 import AddNumber from './components/AddNumber';
 import Numbers from './components/Numbers';
+import Modal from './components/Modal';
 import {getAll, addNew, deleteNumber} from './backend/actions';
 
 
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [search, setSearch] = useState('');
+  const [message, setMessage] = useState(null);
   const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
@@ -43,6 +45,10 @@ const App = () => {
             .catch(error => {
                 console.log('post new phone number failed');
             });
+        setMessage(`${newName} added`);
+        setTimeout(() => {
+            setMessage(null);
+        }, 5000);
     }
   }
 
@@ -60,6 +66,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Modal message={message} />
       <h3>Search</h3>
       <Search search={search} handleChange={handleChange} />
       <h3>Add new number</h3>
