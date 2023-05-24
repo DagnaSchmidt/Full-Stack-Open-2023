@@ -3,6 +3,7 @@ import axios from 'axios';
 import Search from './components/Search';
 import AddNumber from './components/AddNumber';
 import Numbers from './components/Numbers';
+import {getAll, addNew} from './backend/actions';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -12,10 +13,8 @@ const App = () => {
   const searchedPersons = persons.filter((item) => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
-        .then(response => {
-            setPersons(response.data);
-        });
+    getAll()
+        .then(response => setPersons(response));
     }, []);
 
   const handleSubmit = e => {
@@ -35,10 +34,8 @@ const App = () => {
             phone: newPhone,
             id: persons.length + 1
         }
-        axios.post('http://localhost:3001/persons', newPerson)
-            .then(response => {
-                setPersons(persons.concat(response.data));
-            })
+        addNew(newPerson)
+            .then(response => setPersons(persons.concat(response)))
             .catch(error => {
                 console.log('post new phone number failed');
             })
