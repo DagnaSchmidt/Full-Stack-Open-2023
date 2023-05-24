@@ -30,14 +30,18 @@ const App = () => {
     }
     const checked = check();
     if(checked === true){
-        setPersons([
-            ...persons,
-            {
-                name: newName,
-                phone: newPhone,
-                id: persons.length + 1
+        const newPerson = {
+            name: newName,
+            phone: newPhone,
+            id: persons.length + 1
         }
-        ]);
+        axios.post('http://localhost:3001/persons', newPerson)
+            .then(response => {
+                setPersons(persons.concat(response.data));
+            })
+            .catch(error => {
+                console.log('post new phone number failed');
+            })
     }else{
         alert(`${newName} is already added to phone book`);
     }
