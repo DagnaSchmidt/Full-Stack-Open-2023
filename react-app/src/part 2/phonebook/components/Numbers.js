@@ -1,13 +1,14 @@
 import React from 'react';
+import Person from './Person';
 
-const Numbers = ({search, searchedPersons, persons}) => {
+const Numbers = ({search, searchedPersons, persons, setPersons, setMessage, setType}) => {
   return (
     <>
         {
             search.length > 0 ?
-                searchedPersons.map((item) => <p key={item.id}>{item.name} {item.phone}</p>)
+                searchedPersons.map((item) => <Person key={item.id} name={item.name} phone={item.phone} id={item.id} setPersons={setPersons} setType={setType} setMessage={setMessage}/>)
             :
-                persons.map((item) => <p key={item.id}>{item.name} {item.phone}</p>)
+                persons.map((item) => <Person key={item.id} name={item.name} phone={item.phone} id={item.id} setPersons={setPersons} setType={setType} setMessage={setMessage}/>)
         }
     </>
   )

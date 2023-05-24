@@ -1,43 +1,57 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import Search from './components/Search';
 import AddNumber from './components/AddNumber';
 import Numbers from './components/Numbers';
+import Modal from './components/Modal';
+import {getAll, addNew, deleteNumber} from './backend/actions';
+
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', phone: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', phone: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', phone: '39-23-6423122', id: 4 }
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [search, setSearch] = useState('');
-  const searchedPersons = persons.filter((item) => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
-  console.log(searchedPersons);
+  const [message, setMessage] = useState(null);
+  const [type, setType] = useState();
+  const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+
+  useEffect(() => {
+    getAll()
+        .then(response => setPersons(response));
+    }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
-    const check = () => {
+    const newPerson = {
+        name: newName,
+        phone: newPhone
+    }
+    const check = () => {   
         for(let i = 0; i < persons.length; i++){
             if(newName === persons[i].name){
-                return false;
+                if(window.confirm(`${newName} already exists in database. Replace old number with new one?`)){
+                    deleteNumber(persons[i].id)
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
         return true;
     }
     const checked = check();
     if(checked === true){
-        setPersons([
-            ...persons,
-            {
-                name: newName,
-                phone: newPhone,
-                id: persons.length + 1
-        }
-        ]);
-    }else{
-        alert(`${newName} is already added to phone book`);
+        addNew(newPerson)
+            .then(response => setPersons(persons.concat(response)))
+            .catch(error => {
+                console.log('post new phone number failed');
+            });
+        setMessage(`${newName} added`);
+        setType('success');
+        setTimeout(() => {
+            setMessage(null);
+            setType(null);
+        }, 5000);
     }
   }
 
@@ -55,18 +69,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Modal message={message} type={type} />
       <h3>Search</h3>
       <Search search={search} handleChange={handleChange} />
       <h3>Add new number</h3>
       <AddNumber handleSubmit={handleSubmit} handleChange={handleChange} newName={newName} newPhone={newPhone} />
-      <h2>Numbers</h2>
-      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} />
-      {/* {
-        search.length > 0 ?
-            searchedPersons.map((item) => <p key={item.name}>{item.name} {item.phone}</p>)
-        :
-            persons.map((item) => <p key={item.name}>{item.name} {item.phone}</p>)
-      } */}
+      <h3>Numbers</h3>
+      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} setPersons={setPersons} setType={setType} setMessage={setMessage} />
     </div>
   )
 }
