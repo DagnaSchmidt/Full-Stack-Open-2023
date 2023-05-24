@@ -1,24 +1,19 @@
 {
   "persons": [
     {
-      "name": "Dagna",
-      "phone": "8775333",
-      "id": 2
-    },
-    {
-      "name": "EwaL",
-      "phone": "0000",
-      "id": 4
-    },
-    {
       "name": "Ola",
       "phone": "2222222",
       "id": 5
     },
     {
-      "name": "Ilona",
-      "phone": "12000",
-      "id": 6
+      "name": "New",
+      "phone": "56789",
+      "id": 7
+    },
+    {
+      "name": "Dagna",
+      "phone": "77777",
+      "id": 9
     }
   ]
 }

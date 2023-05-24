@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Modal = ({message}) => {
+const Modal = ({message, type}) => {
     if(message === null){
         return null;
     }
 
   return (
-    <div>
-        <h4>Success!</h4>
+    <div style={{padding: '12px', borderWidth: '6px', borderStyle: 'solid', borderColor: type === 'success' ? 'green' : 'red'}}>
+        <h4>{type === 'success' ? 'Success!' : 'Error!'}</h4>
         <p>{message}</p>
     </div>
   )

@@ -12,6 +12,7 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('');
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState(null);
+  const [type, setType] = useState();
   const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
@@ -46,8 +47,10 @@ const App = () => {
                 console.log('post new phone number failed');
             });
         setMessage(`${newName} added`);
+        setType('success');
         setTimeout(() => {
             setMessage(null);
+            setType(null);
         }, 5000);
     }
   }
@@ -66,13 +69,13 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Modal message={message} />
+      <Modal message={message} type={type} />
       <h3>Search</h3>
       <Search search={search} handleChange={handleChange} />
       <h3>Add new number</h3>
       <AddNumber handleSubmit={handleSubmit} handleChange={handleChange} newName={newName} newPhone={newPhone} />
       <h3>Numbers</h3>
-      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} setPersons={setPersons} />
+      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} setPersons={setPersons} setType={setType} setMessage={setMessage} />
     </div>
   )
 }
