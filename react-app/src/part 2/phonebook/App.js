@@ -12,7 +12,13 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState(null);
   const [type, setType] = useState();
-  const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+//   const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+
+  const searchedPersons = () => {
+    if(search.length != 0){
+        return persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+    }
+  }
 
   useEffect(() => {
     getAll()
