@@ -5,7 +5,6 @@ import Numbers from './components/Numbers';
 import Modal from './components/Modal';
 import {getAll, addNew, deleteNumber} from './backend/actions';
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
