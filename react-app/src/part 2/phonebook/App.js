@@ -12,7 +12,6 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [message, setMessage] = useState(null);
   const [type, setType] = useState();
-//   const searchedPersons = persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
 
   const searchedPersons = () => {
     if(search.length != 0){
@@ -47,16 +46,24 @@ const App = () => {
     const checked = check();
     if(checked === true){
         addNew(newPerson)
-            .then(response => setPersons(persons.concat(response)))
+            .then(response => {
+                setPersons(persons.concat(response));
+                setMessage(`${newName} added`);
+                setType('success');
+                setTimeout(() => {
+                    setMessage(null);
+                    setType(null);
+                }, 5000);
+            })
             .catch(error => {
                 console.log('post new phone number failed');
+                setMessage('post new phone number failed');
+                setType('error');
+                setTimeout(() => {
+                    setMessage(null);
+                    setType(null);
+                }, 5000);
             });
-        setMessage(`${newName} added`);
-        setType('success');
-        setTimeout(() => {
-            setMessage(null);
-            setType(null);
-        }, 5000);
     }
   }
 
