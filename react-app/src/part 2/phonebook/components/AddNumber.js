@@ -7,7 +7,7 @@ const AddNumber = ({handleSubmit, newName, newPhone, handleChange}) => {
             name: <input type='text' name='name' value={newName} onChange={handleChange} />
         </div>
         <div>
-            phone: <input type='number' name='phone' value={newPhone} onChange={handleChange} />
+            phone: <input name='phone' value={newPhone} onChange={handleChange} />
         </div>
         <div>
           <button type="submit">add</button>
