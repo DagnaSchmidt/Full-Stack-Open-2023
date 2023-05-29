@@ -13,12 +13,6 @@ const App = () => {
   const [message, setMessage] = useState(null);
   const [type, setType] = useState();
 
-  const searchedPersons = () => {
-    if(search.length !== 0){
-        return persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
-    }
-  }
-
   useEffect(() => {
     getAll()
         .then(response => setPersons(response));
@@ -87,7 +81,7 @@ const App = () => {
       <h3>Add new number</h3>
       <AddNumber handleSubmit={handleSubmit} handleChange={handleChange} newName={newName} newPhone={newPhone} />
       <h3>Numbers</h3>
-      <Numbers search={search} searchedPersons={searchedPersons} persons={persons} setPersons={setPersons} setType={setType} setMessage={setMessage} />
+      <Numbers search={search} persons={persons} setPersons={setPersons} setType={setType} setMessage={setMessage} />
     </div>
   )
 }
