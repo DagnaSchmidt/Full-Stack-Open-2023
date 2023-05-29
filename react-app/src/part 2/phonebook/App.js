@@ -14,7 +14,7 @@ const App = () => {
   const [type, setType] = useState();
 
   const searchedPersons = () => {
-    if(search.length != 0){
+    if(search.length !== 0){
         return persons.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
     }
   }

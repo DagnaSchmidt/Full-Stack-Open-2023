@@ -5,7 +5,7 @@ const Numbers = ({search, searchedPersons, persons, setPersons, setMessage, setT
   return (
     <>
         {
-            search.length > 0 ?
+            search.length > 0 && searchedPersons.length !== 0 ?
                 searchedPersons.map((item) => <Person key={item.id} name={item.name} phone={item.phone} id={item.id} setPersons={setPersons} setType={setType} setMessage={setMessage}/>)
             :
                 persons.map((item) => <Person key={item.id} name={item.name} phone={item.phone} id={item.id} setPersons={setPersons} setType={setType} setMessage={setMessage}/>)
