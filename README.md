@@ -11,7 +11,7 @@ Part2 projects:
 - Phonebook
 
 
-Part3 (backend for Phonebook project):
-https://github.com/DagnaSchmidt/Full-Stack-Open-2023-backend
-Part4:
-https://github.com/DagnaSchmidt/Full-Stack-Open-2023-blog-list-app
+Part3 (backend for Phonebook project): </br>
+https://github.com/DagnaSchmidt/Full-Stack-Open-2023-backend </br>
+Part4: </br>
+https://github.com/DagnaSchmidt/Full-Stack-Open-2023-blog-list-app </br>
