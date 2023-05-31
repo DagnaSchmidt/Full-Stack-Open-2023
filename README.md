@@ -4,6 +4,7 @@ https://fullstackopen.com/en/ </br>
 Part1 projects:
 - Anecdotes
 - Unicafe
+
 Part2 projects:
 - Course infromation
 - Data for countries
