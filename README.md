@@ -1,11 +1,11 @@
 Challenges from course: Full-Stack-Open-2023 (part0 - part2) </br>
 https://fullstackopen.com/en/ </br>
 
-Part1 projects:
+Part 1 projects:
 - Anecdotes
 - Unicafe
 
-Part2 projects:
+Part 2 projects:
 - Course infromation
 - Data for countries
 - Phonebook
